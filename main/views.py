@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse
 from django.http import JsonResponse
 from .models import Student, Staff
 from django.db import IntegrityError
+from django.views.decorators.csrf import csrf_exempt
 import json
 
 # Create your views here.
@@ -9,6 +10,7 @@ import json
 def index(request):
     return HttpResponse("Index page")
 
+@csrf_exempt
 def student(request):
 
     #Returns all students
