@@ -32,7 +32,7 @@ def student(request):
     #Create a new student
     elif request.method == "POST":
 
-        data = json.loads(request)
+        data = json.loads(request.body)
 
         first_name = data.get("first-name")
         last_name = data.get("last-name")
@@ -46,43 +46,61 @@ def student(request):
         hasOffer = data.get("has-offer")
         discountOrScholarship = data.get("discount-or-scholarship")
 
-        if first_name is not "" and last_name is not "" and sex is not "" and phone is not "" and email is not "" and country is not "" and address is not "" and isInternational is not "" and programme_applied is not "":
+        context = {
+            "first-name": first_name,
+            "last-name": last_name,
+            "sex": sex,
+            "phone": phone,
+            "email": email,
+            "country": country,
+            "address": address,
+            "is-international": isInternational,
+            "programmed-applied": programme_applied,
+            "has-offer": hasOffer,
+            "discount-or-scholarship": discountOrScholarship
+        }
+
+        return JsonResponse({
+            "students" : [context]
+        })
+
+        # if first_name is not "" and last_name is not "" and sex is not "" and phone is not "" and email is not "" and country is not "" and address is not "" and isInternational is not "" and programme_applied is not "":
             
-            if "@" in email and "." in email :
+        #     if "@" in email and "." in email :
 
-                try:
+        #         try:
 
-                    student = Student(
-                        first_name = first_name,
-                        last_name = last_name,
-                        sex = sex,
-                        phone = phone,
-                        email = email,
-                        country = country,
-                        address = address,
-                        isInternationalStudent = isInternational,
-                        programme_application = programme_applied,
-                        hasOffer = hasOffer,
-                        DiscountOrScholarship = discountOrScholarship
-                    )
+        #             student = Student(
+        #                 first_name = first_name,
+        #                 last_name = last_name,
+        #                 sex = sex,
+        #                 phone = phone,
+        #                 email = email,
+        #                 country = country,
+        #                 address = address,
+        #                 isInternationalStudent = isInternational,
+        #                 programme_application = programme_applied,
+        #                 hasOffer = hasOffer,
+        #                 DiscountOrScholarship = discountOrScholarship
+        #             )
 
-                    student.save()
+        #             student.save()
 
-                    return JsonResponse({
-                        "message" : "successfully added to record",
-                        "student" : student.serialize()
-                    })
+        #             return JsonResponse({
+        #                 "message" : "successfully added to record",
+        #                 "student" : student.serialize()
+        #             })
 
-                except IntegrityError:
-                    return JsonResponse({
-                        "message" : "could not register user at the moment. pls try again later"
-                    })
+        #         except IntegrityError:
+        #             return JsonResponse({
+        #                 "message" : "could not register user at the moment. pls try again later"
+        #             })
 
-            else:
+        #     else:
 
-                return JsonResponse({
-                    "message" : "Invalid email, please provide a valid email"
-                })
+        #         return JsonResponse({
+        #             "message" : "Invalid email, please provide a valid email"
+        #         })
 
 
 
