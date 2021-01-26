@@ -13,6 +13,9 @@ class Staff(models.Model):
     department = models.CharField(max_length=255)
     job = models.CharField(max_length=255)
 
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
     def serialize(self):
         return {
             "first_name" : self.first_name,
@@ -31,12 +34,15 @@ class Module(models.Model):
     description = models.CharField(max_length=255)
     tutors = models.ManyToManyField(Staff, blank=True, related_name="module")
 
+    def __str__(self):
+        return self.title
+
     def serialize(self):
         return {
             "code" : self.code,
             "title" : self.title,
             "description" : self.description,
-            "tutors" : [tutor.serialize() for tutor in self.tutors],
+            "tutors" : [tutor.id for tutor in self.tutors.all()],
         }
 
 class Programme(models.Model):
@@ -46,12 +52,15 @@ class Programme(models.Model):
     modules = models.ManyToManyField(Module, blank=True, related_name="programme")
     fee = models.DecimalField(max_digits=10, decimal_places=2)
 
+    def __str__(self):
+        return self.title
+
     def serialize(self):
         return {
             "code" : self.code,
             "title" : self.title,
             "description" : self.description,
-            "modules" : [module.serialize() for module in self.modules],
+            "modules" : [module.code for module in self.modules.all()],
             "fee" : self.fee
         }
 
@@ -60,6 +69,9 @@ class DiscountsAndScholarship(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     percent = models.IntegerField()
+
+    def __str__(self):
+        return self.title
 
     def serialize(self):
             return {
@@ -83,6 +95,9 @@ class Student(models.Model):
     DiscountOrScholarship = models.ManyToManyField(DiscountsAndScholarship, blank=True, related_name="discounts")
     date = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
     def serialize(self):
         return {
             "first_name" : self.first_name,
@@ -93,9 +108,9 @@ class Student(models.Model):
             "country" : self.country,
             "address" : self.address,
             "isInternationalStudent" : self.isInternationalStudent,
-            "programme_applied" : [programme.serialize() for programme in self.programme_application],
+            "programme_applied" : self.programme_application.code,
             "hasOffer" : self.hasOffer,
-            "discountOrScholarship" : [item.serialize() for item in self.DiscountOrScholarship],
+            "discountOrScholarship" : [item.code for item in self.DiscountOrScholarship.all()],
             "date" : self.date
         }
 
@@ -107,12 +122,18 @@ class StudentInvoice(models.Model):
     finance_hold = models.DecimalField(max_digits=10, decimal_places=2)
     date_issued = models.DateField(auto_now=True)
 
+    def __str__(self):
+        return f'{self.student.first_name} {self.student.last_name}'
+
 class StudentPayments(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="payments")
     invoices = models.ManyToManyField(StudentInvoice, blank=False, related_name="invoice")
     percent = models.IntegerField()
     academic_year = models.CharField(max_length=255)
     date_updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.student.first_name} {self.student.last_name}'
 
 class EnrolledStudent(models.Model):
     studentID = models.CharField(max_length=10)
@@ -122,6 +143,9 @@ class EnrolledStudent(models.Model):
     status = models.CharField(max_length=255)
     mode = models.CharField(max_length=255)
     date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.student.first_name} {self.student.last_name}'
     
 class StudentService(models.Model):
     enrolled_student = models.ForeignKey(EnrolledStudent, on_delete=models.CASCADE, related_name="services")
@@ -129,6 +153,9 @@ class StudentService(models.Model):
     visa_status = models.CharField(max_length=255)
     visa_exp_date = models.DateField(auto_now=False)
     inCountry = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f'{self.enrolled_student.student.first_name} {self.enrolled_student.student.last_name}'
     
 class StudentAcademics(models.Model):
     enrolled_student = models.ForeignKey(EnrolledStudent, on_delete=models.CASCADE, related_name="academics")
@@ -137,3 +164,6 @@ class StudentAcademics(models.Model):
     academic_hold = models.CharField(max_length=255)
     academic_year = models.CharField(max_length=255)
     academic_term = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f'{self.enrolled_student.student.first_name} {self.enrolled_student.student.last_name}'
