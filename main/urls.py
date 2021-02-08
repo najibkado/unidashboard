@@ -1,8 +1,36 @@
 from django.urls import path, include
-from main.views import staff, index, module, programme, discount, student, invoice, payment, enroll, academic, service
+from main.views import staff, index, module, programme, discount, student, invoice, payment, enroll, academic, service, doc
+from main.views import login, dashboard, logout, register, noaccess
 
 urlpatterns = [
     path('', index.index, name="index"),
+    path('login', login.login_view, name="login"),
+    path('logout', logout.logout_view, name="logout"),
+    path('dashboard', dashboard.dashboard_view, name="dashboard"),
+    path('register', register.register_view, name="register"),
+    path('noaccess', noaccess.noaccess_view, name="noaccess"),
+    path('staffs', staff.staffs_view, name="staffs"),
+    path('staff/<int:id>', staff.staff_view, name="staff"),
+    path('module/register', module.module_reg_view, name="module-register"),
+    path('module/<int:id>', module.module_view, name="module"),
+    path('modules', module.modules_view, name="modules"),
+    path('programme/register', programme.programme_reg_view, name="programme-register"),
+    path('programmes', programme.programmes_view, name="programmes"),
+    path('programme/<int:id>', programme.programme_view, name="programme"),
+    path('discounts/register', discount.discount_reg_view, name="discount-register"),
+    path('discounts', discount.discounts_view, name="discounts"),
+    path('discount/<int:id>', discount.discount_view, name="discount"),
+    path('student/register', student.student_reg_view, name="student-register"),
+    path('students', student.students_view, name="students"),
+    path('students/nooffer', student.students_nooffer_view, name="students-nooffer"),
+    path('student/<int:id>', student.student_view, name="student"),
+    path('invoice/register', invoice.invoice_reg_view, name="invoice-register"),
+    path('invoices', invoice.invoices_view, name="invoices"),
+    path('invoice/<int:id>', invoice.invoice_view, name="invoice"),
+    path('enroll/register', enroll.enroll_register_view, name="enroll-register"),
+    path('enrolled', enroll.enrolled_view, name="enrolled"),
+    path('enrolled/<int:id>', enroll.enrolled_card_view, name="enrollled-card"),
+    path('api/docs', doc.doc, name="doc"),
     path('api/staff', staff.StaffsApiView.as_view()),
     path('api/staff/<int:id>', staff.StaffApiView.as_view()),
     path('api/module', module.ModulesApiView.as_view()),

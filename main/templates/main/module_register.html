@@ -1,0 +1,128 @@
+{% extends "main/layout.html" %}
+{% load static %}
+
+
+{% block body %}
+
+    <!-- Page Content-->
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- Page-Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="page-title">New Module</h4>
+                            </div><!--end col-->
+                        </div><!--end row-->                                                              
+                    </div><!--end page-title-box-->
+                </div><!--end col-->
+            </div><!--end row-->
+            <!-- end page title end breadcrumb -->
+            <div class="row">
+                
+
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Note</h4>
+                            <p class="text-muted mb-0">You are about to create a module in the school management system, you will be held accountable for creating module you have not been directed to create
+                            </p>
+                        </div><!--end card-header-->
+                        <div class="card-body">
+                            <form class="needs-validation" method="POST" action="{% url 'module-register' %}" novalidate>
+                                {% csrf_token %}
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationTooltip01">Module Code</label>
+                                        <input type="text" class="form-control" id="validationTooltip01" name="module-code" placeholder="CST5400" required>
+                                        <div class="valid-tooltip">
+                                            Looks good!
+                                        </div>
+                                    </div><!--end col-->
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationTooltip02">Module Title</label>
+                                        <input type="text" class="form-control" id="validationTooltip02" name="module-title" placeholder="Virtulization and Cloud Computing" required>
+                                        <div class="valid-tooltip">
+                                            Looks good!
+                                        </div>
+                                    </div><!--end col-->
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationTooltipUsername">Module Description</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="validationTooltipUsername" name="module-desc" placeholder="This is a network course" aria-describedby="validationTooltipUsernamePrepend" required>
+                                            <div class="invalid-tooltip">
+                                                Please choose a unique and valid username.
+                                            </div>
+                                        </div>
+                                    </div><!--end col-->
+                                </div><!--end form-row-->
+
+                           
+                                <hr>
+
+                                <div class="card-header">
+                                    <h4 class="card-title">Tutors</h4>
+                                    <p class="text-muted mb-0"> Please select appropriate tutors for the above programme. Use Cmd or Shift to select multiple users</p>
+                                </div><!--end card-header-->
+
+                                <br>
+                                
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-12">
+                                        <label for="validationTooltip01">Tutors</label>
+                                        <div class="form-group">
+                                            <select multiple="multiple" name="tutors" class="form-control"  id="exampleFormControlSelect2">
+                                                {% for tutor in tutors %}
+                                                <option value="{{ tutor.id }}">{{tutor.user.first_name}} {{tutor.user.last_name}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="valid-tooltip">
+                                            Looks good!
+                                        </div>
+                                    </div><!--end col-->
+
+                                </div><!--end form-row-->
+
+                                
+
+                                <hr>
+                                           
+                                <br>        
+                                            
+
+                                <button class="btn btn-primary" type="submit">Submit form</button>
+                            </form><!--end form-->                                      
+                        </div><!--end card-body-->
+                    </div><!--end card-->
+                </div><!--end col-->
+            </div><!--end row-->
+
+        
+        </div><!-- container -->
+
+       
+    </div>
+    <!-- end page content -->
+
+    <!-- jQuery  -->
+    <script src="{% static '/assets/js/jquery.min.js' %}"></script>
+    <script src="{% static '/assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static '/assets/js/metismenu.min.js' %}"></script>
+    <script src="{% static '/assets/js/waves.js' %}"></script>
+    <script src="{% static '/assets/js/feather.min.js' %}"></script>
+    <script src="{% static '/assets/js/simplebar.min.js' %}"></script>
+    <script src="{% static '/assets/js/moment.js' %}"></script>
+    <script src="{% static '/plugins/daterangepicker/daterangepicker.js' %}"></script>
+
+    <!-- Parsley js -->
+    <script src="{% static '/plugins/parsleyjs/parsley.min.js' %}"></script>
+    <script src="{% static '/assets/pages/jquery.validation.init.js' %}"></script>
+    
+    <!-- App js -->
+    <script src="{% static '/assets/js/jquery.core.js' %}"></script>
+    <script src="{% static '/assets/js/app.js' %}"></script>
+
+{% endblock %}

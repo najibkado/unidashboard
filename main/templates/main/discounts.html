@@ -1,0 +1,68 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <div class="row">
+                <div class="col">
+                    <h4 class="page-title">Discounts and Scholarships</h4>
+                </div><!--end col-->
+                <div class="col-auto align-self-center">
+                    <div class="col">
+                        <form>
+                            <div class="input-group">                               
+                                <input type="text" id="example-input1-group2" name="example-input1-group2" class="form-control form-control-sm" placeholder="Search">
+                                <span class="input-group-append">
+                                    <button type="button" class="btn btn-soft-primary btn-sm"><i class="fas fa-search"></i></button>
+                                </span>
+                            </div>                                                
+                        </form>                                            
+                    </div><!--end col-->
+                </div><!--end col-->  
+            </div><!--end row-->                                                              
+        </div><!--end page-title-box-->
+    </div><!--end col-->
+</div><!--end row-->
+
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">You can search and view discounts and scholarships</h4>
+        </div><!--end card-header-->
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>Id</th>
+                        <th>Code</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>More</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for discount in discounts %}
+                    <tr>
+                        <th scope="row">{{discount.id}}</th>
+                        <td>{{discount.code}}</td>
+                        <td>{{discount.title}}</td>
+                        <td>{{discount.description}}</td>
+                        <td><a href="{% url 'discount' discount.id %}">View More</a></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table><!--end /table-->
+            </div><!--end /tableresponsive-->
+        </div><!--end card-body-->
+    </div><!--end card-->
+</div> <!-- end col -->
+</div> <!-- end row -->
+
+
+
+{% endblock %}

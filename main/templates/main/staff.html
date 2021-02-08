@@ -1,0 +1,398 @@
+{% extends "main/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <!-- Page Content-->
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- Page-Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="page-title">Staff Profile</h4>
+                            </div><!--end col-->
+                        </div><!--end row-->                                                              
+                    </div><!--end page-title-box-->
+                </div><!--end col-->
+            </div><!--end row-->
+            <!-- end page title end breadcrumb -->
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">  
+                        <div class="card-body p-0">
+                            <div id="user_map" class="pro-map" style="height: 220px"></div>                                     
+                        </div><!--end card-body-->                               
+                        <div class="card-body">
+                            <div class="dastone-profile">
+                                <div class="row">
+                                    <div class="col-lg-4 align-self-center mb-3 mb-lg-0">
+                                        <div class="dastone-profile-main">
+                                            <div class="dastone-profile-main-pic">
+                                                <img src="{% static '/assets/images/users/user-4.jpg' %}" alt="" height="110" class="rounded-circle">
+                                                <span class="dastone-profile_main-pic-change">
+                                                    <i class="fas fa-camera"></i>
+                                                </span>
+                                            </div>
+                                            <div class="dastone-profile_user-detail">
+                                                <h5 class="dastone-user-name">{{ staff.user.first_name }} {{ staff.user.last_name}}</h5>                                                        
+                                                <p class="mb-0 dastone-user-name-post">{{ staff.job }}</p>                                                        
+                                            </div>
+                                        </div>                                                
+                                    </div><!--end col-->
+                                    
+                                    <div class="col-lg-4 ml-auto align-self-center">
+                                        <ul class="list-unstyled personal-detail mb-0">
+                                            <li class=""><i class="las la-phone mr-2 text-secondary font-22 align-middle"></i> <b> phone </b> : {{ staff.phone }}</li>
+                                            <li class="mt-2"><i class="las la-envelope text-secondary font-22 align-middle mr-2"></i> <b> Email </b> : {{ staff.user.email }}</li>
+                                            <li class="mt-2"><i class="las la-globe text-secondary font-22 align-middle mr-2"></i> <b> Address </b> : {{ staff.user.address }}</li>                                                   
+                                        </ul>
+                                       
+                                    </div><!--end col-->
+                                    <div class="col-lg-4 align-self-center">
+                                        <ul class="list-unstyled personal-detail mb-0">
+                                            <li class=""><i class="las la-phone mr-2 text-secondary font-22 align-middle"></i> <b> Department </b> : {{ staff.department }}</li>
+                                            <li class="mt-2"><i class="las la-envelope text-secondary font-22 align-middle mr-2"></i> <b> Specialization </b> : {{ staff.specialization }}</li>
+                                            <li class="mt-2"><i class="las la-globe text-secondary font-22 align-middle mr-2"></i> <b> Degree </b> : {{ staff.degree }}</li>                                                   
+                                        </ul>                                   
+                                    </div><!--end col-->
+                                </div><!--end row-->
+                            </div><!--end f_profile-->                                                                                
+                        </div><!--end card-body-->          
+                    </div> <!--end card-->    
+                </div><!--end col-->
+            </div><!--end row-->
+            <div class="pb-4">
+                <ul class="nav-border nav nav-pills mb-0" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" id="Profile_Project_tab" data-toggle="pill" href="#Profile_Project">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" id="Profile_Post_tab" data-toggle="pill" href="#Profile_Post">Summary</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="settings_detail_tab" data-toggle="pill" href="#Profile_Settings">Settings</a>
+                    </li>
+                </ul>        
+            </div><!--end card-body-->
+            <div class="row">
+                <div class="col-12">
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade " id="Profile_Project" role="tabpanel" aria-labelledby="Profile_Project_tab">
+                           
+                            
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row align-items-center">
+                                        <div class="col">                      
+                                            <h4 class="card-title">All Events</h4>                      
+                                        </div><!--end col-->
+                                    </div>  <!--end row-->                                  
+                                </div><!--end card-header-->
+                                <div class="card-body">
+                                    
+                                    <ul class="list-group custom-list-group mb-n3">
+                                        {% for event in all_events %}
+                                        <li class="list-group-item align-items-center d-flex justify-content-between">
+                                            <div class="media">
+                                                <img src="assets/images/small/img-2.jpg" height="40" class="mr-3 align-self-center rounded" alt="...">
+                                                <div class="media-body align-self-center"> 
+                                                    <a href="#" class="m-0 d-block font-weight-semibold font-13">{{event.creator.username}}</a>
+                                                    <a href="#" class="font-12 text-primary">{{event.desc}}</a>                                                                                           
+                                                </div><!--end media body-->
+                                            </div>
+                                            <div class="align-self-center">
+                                                <span class="text-muted mb-n2">{{event.date}}</span>
+                                            </div>                                            
+                                        </li>
+                                        {% endfor %}
+                                       
+                                    </ul>                                    
+                                </div><!--end card-body--> 
+                            </div><!--end card-->
+                            
+
+                        </div>
+                        <div class="tab-pane fade show active" id="Profile_Post" role="tabpanel" aria-labelledby="Profile_Post_tab">
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="card">                                                        
+                                                <div class="card-body  report-card">
+                                                    <div class="row d-flex justify-content-center">
+                                                        <div class="col">
+                                                            <p class="text-dark mb-1 font-weight-semibold">My Events</p>
+                                                            <h3 class="my-2 font-24 font-weight-bold">{{ event_num }}</h3>
+                                                            <p class="mb-0 text-truncate text-muted">🔔 <span class="text-dark font-weight-semibold">{{ gen_event }}</span> New events created total</p>
+                                                        </div>
+                                                        <div class="col-auto align-self-center">
+                                                            <div class="report-main-icon bg-light-alt">
+                                                                <i data-feather="eye" class="align-self-center text-muted icon-md"></i>  
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div><!--end card-body-->          
+                                            </div> <!--end card-->    
+                                        </div><!--end col-->
+                                        <div class="col-lg-6">
+                                            <div class="card">                                                        
+                                                <div class="card-body  report-card">
+                                                    <div class="row d-flex justify-content-center">
+                                                        <div class="col">
+                                                            <p class="text-dark mb-1 font-weight-semibold">Work Rate</p>
+                                                            <h3 class="my-2 font-24 font-weight-bold">5 Stars</h3>
+                                                            <p class="mb-0 text-truncate text-muted">👍 <span class="text-dark font-weight-semibold">5</span> You are doing your job well</p>
+                                                        </div>
+                                                        <div class="col-auto align-self-center">
+                                                            <div class="report-main-icon bg-light-alt">
+                                                                <i data-feather="message-square" class="align-self-center text-muted icon-md"></i>  
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div><!--end card-body-->          
+                                            </div> <!--end card-->    
+                                        </div><!--end col-->
+                                    </div><!--end row--> 
+
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="row align-items-center">
+                                                <div class="col">                      
+                                                    <h4 class="card-title">Recent Events</h4>                      
+                                                </div><!--end col-->
+                                            </div>  <!--end row-->                                  
+                                        </div><!--end card-header-->
+                                        <div class="card-body">
+                                            
+                                            <ul class="list-group custom-list-group mb-n3">
+                                                {% for event in events %}
+                                                <li class="list-group-item align-items-center d-flex justify-content-between">
+                                                    <div class="media">
+                                                        <img src="assets/images/small/img-2.jpg" height="40" class="mr-3 align-self-center rounded" alt="...">
+                                                        <div class="media-body align-self-center"> 
+                                                            <a href="#" class="m-0 d-block font-weight-semibold font-13">{{event.creator.username}}</a>
+                                                            <a href="#" class="font-12 text-primary">{{event.desc}}</a>                                                                                           
+                                                        </div><!--end media body-->
+                                                    </div>
+                                                    <div class="align-self-center">
+                                                        <span class="text-muted mb-n2">{{event.date}}</span>
+                                                    </div>                                            
+                                                </li>
+                                                {% endfor %}
+                                               
+                                            </ul>                                    
+                                        </div><!--end card-body--> 
+                                    </div><!--end card-->
+                                   
+                                    
+                                </div><!--end col-->
+                                <div class="col-lg-3">
+                                    
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="dash-datepick">
+                                                <input type="hidden" id="light_datepick"/>
+                                            </div>
+                                        </div><!--end card-body-->
+                                    </div><!--end card-->
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="row align-items-center">
+                                                <div class="col">                      
+                                                    <h4 class="card-title">Profile Access</h4>                      
+                                                </div><!--end col-->                                                       
+                                            </div>  <!--end row-->                                  
+                                        </div><!--end card-header-->
+                                        <div class="card-body">
+                                            {% if staff.user.is_staff %}
+                                            <ul class="list-unstyled personal-detail mb-0">
+                                                <li class=""><i class="las la-angle-right mr-2 text-secondary font-22 align-middle"></i> <b> Director Office</b> : True</li>
+                                                <li class="mt-2"><i class="las la-angle-right text-secondary font-22 align-middle mr-2"></i> <b> Admission Office </b> : True</li>
+                                                <li class="mt-2"><i class="las la-angle-right text-secondary font-22 align-middle mr-2"></i> <b> Visa Office </b> : True</li>   
+                                                <li class="mt-2"><i class="las la-angle-right text-secondary font-22 align-middle mr-2"></i> <b> Student Office </b> : True</li>  
+                                                <li class="mt-2"><i class="las la-angle-right text-secondary font-22 align-middle mr-2"></i> <b> Finance Office </b> : True</li>  
+                                                <li class="mt-2"><i class="las la-angle-right text-secondary font-22 align-middle mr-2"></i> <b> IT Office </b> : True</li>                                                  
+                                            </ul>
+                                            {% else %}
+                                            <ul class="list-unstyled personal-detail mb-0">
+                                                <li class=""><i class="las la-angle-right mr-2 text-secondary font-22 align-middle"></i> <b> Director Office</b> : {{ staff.director_access }}</li>
+                                                <li class="mt-2"><i class="las la-angle-right text-secondary font-22 align-middle mr-2"></i> <b> Admission Office </b> : {{ staff.student_admission_access }}</li>
+                                                <li class="mt-2"><i class="las la-angle-right text-secondary font-22 align-middle mr-2"></i> <b> Visa Office </b> : {{ staff.student_visa_access }}</li>   
+                                                <li class="mt-2"><i class="las la-angle-right text-secondary font-22 align-middle mr-2"></i> <b> Student Office </b> : {{ staff.student_office_department_access }}</li>  
+                                                <li class="mt-2"><i class="las la-angle-right text-secondary font-22 align-middle mr-2"></i> <b> Finance Office </b> : {{ staff.student_finance_access }}</li>  
+                                                <li class="mt-2"><i class="las la-angle-right text-secondary font-22 align-middle mr-2"></i> <b> IT Office </b> : {{ staff.it_department_access }}</li>                                                  
+                                            </ul>
+                                            {% endif %}
+                                            
+                                        </div><!--end card-body-->
+                                    </div><!--end card-->                                            
+                                </div><!--end col-->
+                            </div><!--end row-->    
+                        </div>
+
+                        <div class="tab-pane fade" id="Profile_Settings" role="tabpanel" aria-labelledby="settings_detail_tab">
+                            <div class="row">
+                                <div class="col-lg-6 col-xl-6">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="row align-items-center">
+                                                <div class="col">                      
+                                                    <h4 class="card-title">Personal Information</h4>                      
+                                                </div><!--end col-->                                                       
+                                            </div>  <!--end row-->                                  
+                                        </div><!--end card-header-->
+                                        <div class="card-body">                       
+                                            <div class="form-group row">
+                                                <label class="col-xl-3 col-lg-3 text-right mb-lg-0 align-self-center">First Name</label>
+                                                <div class="col-lg-9 col-xl-8">
+                                                    <input class="form-control" type="text" value="Rosa">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-xl-3 col-lg-3 text-right mb-lg-0 align-self-center">Last Name</label>
+                                                <div class="col-lg-9 col-xl-8">
+                                                    <input class="form-control" type="text" value="Dodson">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-xl-3 col-lg-3 text-right mb-lg-0 align-self-center">Company Name</label>
+                                                <div class="col-lg-9 col-xl-8">
+                                                    <input class="form-control" type="text" value="MannatThemes">
+                                                    <span class="form-text text-muted font-12">We'll never share your email with anyone else.</span>
+                                                </div>
+                                            </div>
+                
+                                            <div class="form-group row">
+                                                <label class="col-xl-3 col-lg-3 text-right mb-lg-0 align-self-center">Contact Phone</label>
+                                                <div class="col-lg-9 col-xl-8">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend"><span class="input-group-text"><i class="las la-phone"></i></span></div>
+                                                        <input type="text" class="form-control" value="+123456789" placeholder="Phone" aria-describedby="basic-addon1">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-xl-3 col-lg-3 text-right mb-lg-0 align-self-center">Email Address</label>
+                                                <div class="col-lg-9 col-xl-8">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend"><span class="input-group-text"><i class="las la-at"></i></span></div>
+                                                        <input type="text" class="form-control" value="rosa.dodson@demo.com" placeholder="Email" aria-describedby="basic-addon1">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-xl-3 col-lg-3 text-right mb-lg-0 align-self-center">Website Link</label>
+                                                <div class="col-lg-9 col-xl-8">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend"><span class="input-group-text"><i class="la la-globe"></i></span></div>
+                                                        <input type="text" class="form-control" value=" https://mannatthemes.com/" placeholder="Email" aria-describedby="basic-addon1">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-xl-3 col-lg-3 text-right mb-lg-0 align-self-center">USA</label>
+                                                <div class="col-lg-9 col-xl-8">
+                                                    <select class="form-control">
+                                                        <option>London</option>
+                                                        <option>India</option>
+                                                        <option>USA</option>
+                                                        <option>Canada</option>
+                                                        <option>Thailand</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-9 col-xl-8 offset-lg-3">
+                                                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                                    <button type="button" class="btn btn-danger btn-sm">Cancel</button>
+                                                </div>
+                                            </div>                                                    
+                                        </div>                                            
+                                    </div>
+                                </div> <!--end col--> 
+                                <div class="col-lg-6 col-xl-6">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Change Password</h4>
+                                        </div><!--end card-header-->
+                                        <div class="card-body"> 
+                                            <div class="form-group row">
+                                                <label class="col-xl-3 col-lg-3 text-right mb-lg-0 align-self-center">Current Password</label>
+                                                <div class="col-lg-9 col-xl-8">
+                                                    <input class="form-control" type="password" placeholder="Password">
+                                                    <a href="#" class="text-primary font-12">Forgot password ?</a>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-xl-3 col-lg-3 text-right mb-lg-0 align-self-center">New Password</label>
+                                                <div class="col-lg-9 col-xl-8">
+                                                    <input class="form-control" type="password" placeholder="New Password">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-xl-3 col-lg-3 text-right mb-lg-0 align-self-center">Confirm Password</label>
+                                                <div class="col-lg-9 col-xl-8">
+                                                    <input class="form-control" type="password" placeholder="Re-Password">
+                                                    <span class="form-text text-muted font-12">Never share your password.</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-9 col-xl-8 offset-lg-3">
+                                                    <button type="submit" class="btn btn-primary btn-sm">Change Password</button>
+                                                    <button type="button" class="btn btn-danger btn-sm">Cancel</button>
+                                                </div>
+                                            </div>   
+                                        </div><!--end card-body-->
+                                    </div><!--end card-->
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Other Settings</h4>
+                                        </div><!--end card-header-->
+                                        <div class="card-body"> 
+                                            <div class="custom-control custom-switch switch-success mb-2">
+                                                <input type="checkbox" class="custom-control-input" id="customSwitchSuccess" checked>
+                                                <label class="custom-control-label text-dark" for="customSwitchSuccess">Email Notifications</label>
+                                                <span class="form-text text-muted font-12 mt-0">Do you need them?</span>
+                                            </div>
+                                            <div class="custom-control custom-switch switch-success">
+                                                <input type="checkbox" class="custom-control-input" id="customSwitchSuccess">
+                                                <label class="custom-control-label text-dark" for="customSwitchSuccess">API Access</label>
+                                                <span class="form-text text-muted font-12 mt-0">Enable/Disable access</span>
+                                            </div>  
+                                        </div><!--end card-body-->
+                                    </div><!--end card-->
+                                </div> <!-- end col -->
+                                                                      
+                            </div><!--end row-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- container -->
+
+      
+    </div>
+    <!-- end page content -->
+
+
+    <script src="{% static '/assets/js/jquery.min.js' %}"></script>
+    <script src="{% static '/assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static '/assets/js/metismenu.min.js' %}"></script>
+    <script src="{% static '/assets/js/waves.js' %}"></script>
+    <script src="{% static '/assets/js/feather.min.js' %}"></script>
+    <script src="{% static '/assets/js/simplebar.min.js' %}"></script>
+    <script src="{% static '/assets/js/moment.js' %}"></script>
+    <script src="{% static '/plugins/daterangepicker/daterangepicker.js' %}"></script>
+
+    <script src="{% static '/plugins/leaflet/leaflet.js' %}"></script> 
+    <script src="{% static '/plugins/lightpick/lightpick.js' %}"></script>
+    <script src="{% static '/assets/pages/jquery.profile.init.js' %}"></script> 
+
+    <!-- App js -->
+    <script src="{% static '/assets/js/app.js' %}"></script>
+{% endblock %}

@@ -1,28 +1,33 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 class Staff(models.Model):
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_details")
     sex = models.CharField(max_length=255)
     phone = models.IntegerField()
-    email = models.EmailField()
     degree = models.CharField(max_length=255)
     specialization = models.CharField(max_length=255)
     department = models.CharField(max_length=255)
     job = models.CharField(max_length=255)
+    it_department_access = models.BooleanField(default=False)
+    student_office_department_access = models.BooleanField(default=False)
+    student_visa_access = models.BooleanField(default=False)
+    student_finance_access = models.BooleanField(default=False)
+    student_admission_access = models.BooleanField(default=False)
+    director_access = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name}'
+        return f'{self.user.first_name} {self.user.last_name}'
 
     def serialize(self):
         return {
-            "first_name" : self.first_name,
-            "last_name" : self.last_name,
+            "first_name" : self.user.first_name,
+            "last_name" : self.user.last_name,
             "sex" : self.sex,
             "phone" : self.phone,
-            "email" : self.email,
+            "email" : self.user.email,
             "specialization" : self.specialization,
             "department" : self.department,
             "job" : self.job,
@@ -51,6 +56,7 @@ class Programme(models.Model):
     description = models.CharField(max_length=255)
     modules = models.ManyToManyField(Module, blank=True, related_name="programme")
     fee = models.DecimalField(max_digits=10, decimal_places=2)
+    date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
@@ -69,6 +75,7 @@ class DiscountsAndScholarship(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     percent = models.IntegerField()
+    date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
@@ -91,7 +98,7 @@ class Student(models.Model):
     address = models.CharField(max_length=255)
     isInternationalStudent = models.BooleanField(default=False)
     programme_application = models.ForeignKey(Programme, on_delete=models.CASCADE, related_name="programmed_applied")
-    hasOffer = models.BooleanField(default=True)
+    hasOffer = models.BooleanField(default=False)
     DiscountOrScholarship = models.ManyToManyField(DiscountsAndScholarship, blank=True, related_name="discounts")
     date = models.DateTimeField(auto_now=True)
 
@@ -167,3 +174,11 @@ class StudentAcademics(models.Model):
 
     def __str__(self):
         return f'{self.enrolled_student.student.first_name} {self.enrolled_student.student.last_name}'
+
+class Event(models.Model):
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="event_creator")
+    desc = models.CharField(max_length=255)
+    date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.creator.username} {self.desc}'

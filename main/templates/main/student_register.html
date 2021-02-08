@@ -1,0 +1,185 @@
+{% extends "main/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+    <!-- Page Content-->
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- Page-Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="page-title">New Student</h4>
+                            </div><!--end col-->
+                        </div><!--end row-->                                                              
+                    </div><!--end page-title-box-->
+                </div><!--end col-->
+            </div><!--end row-->
+            <!-- end page title end breadcrumb -->
+            <div class="row">
+                
+
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Note</h4>
+                            <p class="text-muted mb-0">You are about to create a student in the school management system, you will be held accountable for creating a student that has not applied through the mdx portal.
+                            </p>
+                        </div><!--end card-header-->
+                        <div class="card-body">
+                            <form class="needs-validation" method="POST" action="{% url 'student-register' %}" novalidate>
+                                {% csrf_token %}
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationTooltip01">First name</label>
+                                        <input type="text" class="form-control" id="validationTooltip01" name="first-name" placeholder="First name" required>
+                                        <div class="valid-tooltip">
+                                            Looks good!
+                                        </div>
+                                    </div><!--end col-->
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationTooltip02">Last name</label>
+                                        <input type="text" class="form-control" id="validationTooltip02" name="last-name" placeholder="Last name" required>
+                                        <div class="valid-tooltip">
+                                            Looks good!
+                                        </div>
+                                    </div><!--end col-->
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationTooltipUsername">Sex</label>
+                                        <div class="input-group">
+        
+                                            <select name="sex" class="form-control" id="exampleFormControlSelect2">
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                                <option value="Others">Prefer not to say</option>
+                                            </select>
+                                            <div class="invalid-tooltip">
+                                                Please choose a unique and valid username.
+                                            </div>
+                                        </div>
+                                    </div><!--end col-->
+                                </div><!--end form-row-->
+
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationTooltip01">Email</label>
+                                        <input type="text" class="form-control" id="validationTooltip01" name="email" placeholder="Email" required>
+                                        <div class="valid-tooltip">
+                                            Looks good!
+                                        </div>
+                                    </div><!--end col-->
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationTooltip02">Phone</label>
+                                        <input type="text" class="form-control" id="validationTooltip02" name="phone" placeholder="Phone" required>
+                                        <div class="valid-tooltip">
+                                            Looks good!
+                                        </div>
+                                    </div><!--end col-->
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationTooltipUsername">Address</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="validationTooltipUsername" name="address" placeholder="Address" aria-describedby="validationTooltipUsernamePrepend" required>
+                                            <div class="invalid-tooltip">
+                                                Please choose a unique and valid username.
+                                            </div>
+                                        </div>
+                                    </div><!--end col-->
+                                </div><!--end form-row-->
+
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationTooltip01">Country</label>
+                                        <input type="text" class="form-control" id="validationTooltip01" name="country" placeholder="Country" required>
+                                        <div class="valid-tooltip">
+                                            Looks good!
+                                        </div>
+                                    </div><!--end col-->
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationTooltip02">International Student</label>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="is-international" id="customCheck1" data-parsley-multiple="groups"
+                                                    data-parsley-mincheck="2">
+                                            <label class="custom-control-label" for="customCheck1">International Student</label>
+                                        </div>
+                                        <div class="valid-tooltip">
+                                            Looks good!
+                                        </div>
+                                    </div><!--end col-->
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationTooltipUsername">Programme</label>
+                                            <div class="form-group">
+                                                <select name="programme" class="form-control" id="exampleFormControlSelect2">
+                                                    {% for programme in programmes %}
+                                                    <option value="{{programme.id}}">{{programme.code}} | {{programme.title}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <div class="valid-tooltip">
+                                                Looks good!
+                                            </div>
+                                    </div><!--end col-->
+                                </div><!--end form-row-->
+
+                                <div class="form-row">
+                                    
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationTooltip03">Offer</label>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="has-offer" id="hasOffer" data-parsley-multiple="groups"
+                                                    data-parsley-mincheck="2">
+                                            <label class="custom-control-label" for="hasOffer">Has Offer</label>
+                                        </div>
+                                        <div class="invalid-tooltip">
+                                            Please provide a valid password.
+                                        </div>
+                                    </div><!--end col-->
+
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationTooltipUsername">Discounts or Scholarships</label>
+                                        <div class="form-group">
+                                            <select multiple name="discounts" class="form-control" id="exampleFormControlSelect2">
+                                                {% for discount in discounts %}
+                                                <option value="{{discount.id}}">{{discount.code}} | {{discount.title}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div><!--end col-->
+                                </div><!--end form-row-->
+
+
+                                <button class="btn btn-primary" type="submit">Submit form</button>
+                            </form><!--end form-->                                      
+                        </div><!--end card-body-->
+                    </div><!--end card-->
+                </div><!--end col-->
+            </div><!--end row-->
+
+        
+        </div><!-- container -->
+
+       
+    </div>
+    <!-- end page content -->
+
+    <!-- jQuery  -->
+    <script src="{% static '/assets/js/jquery.min.js' %}"></script>
+    <script src="{% static '/assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static '/assets/js/metismenu.min.js' %}"></script>
+    <script src="{% static '/assets/js/waves.js' %}"></script>
+    <script src="{% static '/assets/js/feather.min.js' %}"></script>
+    <script src="{% static '/assets/js/simplebar.min.js' %}"></script>
+    <script src="{% static '/assets/js/moment.js' %}"></script>
+    <script src="{% static '/plugins/daterangepicker/daterangepicker.js' %}"></script>
+
+    <!-- Parsley js -->
+    <script src="{% static '/plugins/parsleyjs/parsley.min.js' %}"></script>
+    <script src="{% static '/assets/pages/jquery.validation.init.js' %}"></script>
+    
+    <!-- App js -->
+    <script src="{% static '/assets/js/jquery.core.js' %}"></script>
+    <script src="{% static '/assets/js/app.js' %}"></script>
+
+{% endblock %}

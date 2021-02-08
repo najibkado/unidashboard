@@ -1,0 +1,202 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>Dastone - Admin & Dashboard Template</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+        <meta content="" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="{% static '/assets/images/favicon.ico' %}">
+
+        <!-- App css -->
+        <link href="{% static '/assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static '/assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static '/assets/css/metisMenu.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static '/plugins/daterangepicker/daterangepicker.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static '/assets/css/app.min.css' %}" rel="stylesheet" type="text/css" />
+
+        <link href="{% static '/plugins/leaflet/leaflet.css' %}" rel="stylesheet">
+        <link href="{% static '/plugins/lightpick/lightpick.css' %}" rel="stylesheet" />
+
+         <!-- DataTables -->
+        <link href="{% static '/plugins/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static '/plugins/datatables/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static '/plugins/datatables/responsive.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" /> 
+
+    </head>
+
+    <body>
+        
+        <!-- Left Sidenav -->
+        <div class="left-sidenav">
+            <!-- LOGO -->
+            <div class="brand">
+                <a href="{% url 'index' %}" class="logo">
+                    <h4>MDX DASHBOARD</h4>
+                </a>
+            </div>
+            
+            <!--end logo-->
+
+            
+            <div class="menu-content h-100" data-simplebar>
+                {% if user.is_authenticated %}
+                <ul class="metismenu left-sidenav-menu">
+                    <li class="menu-label mt-0">Main</li>
+                    <li>
+                        <a href="javascript: void(0);"> <i data-feather="home" class="align-self-center menu-icon"></i><span>Dashboard</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                        <ul class="nav-second-level" aria-expanded="false">
+                            <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}"><i class="ti-control-record"></i>Analytics</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Students Analytics</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);"><i data-feather="lock" class="align-self-center menu-icon"></i><span>IT Office</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                        <ul class="nav-second-level" aria-expanded="false">
+                            <li class="nav-item"><a class="nav-link" href="{% url 'register' %}"><i class="ti-control-record"></i>New Staff</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'staffs' %}"><i class="ti-control-record"></i>Staffs</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'module-register' %}"><i class="ti-control-record"></i>New Module</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'modules' %}"><i class="ti-control-record"></i>Modules</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'programme-register' %}"><i class="ti-control-record"></i>New Programme</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'programmes' %}"><i class="ti-control-record"></i>Programmes</a></li>
+     
+                        </ul>
+                    </li> 
+    
+                    <li>
+                        <a href="javascript: void(0);"><i data-feather="grid" class="align-self-center menu-icon"></i><span>Admission Office</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                        <ul class="nav-second-level" aria-expanded="false">
+                            <li class="nav-item"><a class="nav-link" href="{% url 'discount-register' %}"><i class="ti-control-record"></i>New Discount or Scholarship</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'discounts' %}"><i class="ti-control-record"></i>Discounts and Scholarships</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'student-register' %}"><i class="ti-control-record"></i>New Student</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'students' %}"><i class="ti-control-record"></i>Students</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'students-nooffer' %}"><i class="ti-control-record"></i>Students without offer</a></li>
+                            
+                        </ul>
+                        
+                    </li>
+    
+                    <li>
+                        <a href="javascript: void(0);"><i data-feather="lock" class="align-self-center menu-icon"></i><span>Visa Office</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                        <ul class="nav-second-level" aria-expanded="false">
+                            <li class="nav-item"><a class="nav-link" href="auth-login.html"><i class="ti-control-record"></i>Log in</a></li>
+     
+                        </ul>
+                    </li> 
+    
+                    <hr class="hr-dashed hr-menu">
+                    <li class="menu-label my-2">Student Services</li>
+    
+                    <li>
+                        <a href="javascript: void(0);"><i data-feather="box" class="align-self-center menu-icon"></i><span>Student Office</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                        <ul class="nav-second-level" aria-expanded="false">
+                            <li class="nav-item"><a class="nav-link" href="{% url 'enroll-register' %}"><i class="ti-control-record"></i>New Enrollment</a></li>
+                            <!-- <li class="nav-item"><a class="nav-link" href="{% url 'invoices' %}"><i class="ti-control-record"></i>Invoices</a></li> -->
+                        </ul>
+
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);"><i data-feather="box" class="align-self-center menu-icon"></i><span>Student Finance</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                        <ul class="nav-second-level" aria-expanded="false">
+                            <li class="nav-item"><a class="nav-link" href="{% url 'invoice-register' %}"><i class="ti-control-record"></i>New Invoice</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'invoices' %}"><i class="ti-control-record"></i>Invoices</a></li>
+                        </ul>
+
+                    </li>
+         
+                </ul>
+
+                {% endif %}
+
+            </div>
+        </div>
+        <!-- end left-sidenav-->
+       
+        
+
+        <div class="page-wrapper">
+            <!-- Top Bar Start -->
+            <div class="topbar">            
+                <!-- Navbar -->
+                <nav class="navbar-custom">
+                    
+                    {% if user.is_authenticated %}
+                    
+                    <ul class="list-unstyled topbar-nav float-right mb-0">  
+                       
+                        <li class="dropdown">
+                            <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
+                                aria-haspopup="false" aria-expanded="false">
+                                <span class="ml-1 nav-user-name hidden-sm">{{ user.username }}</span>
+                                <img src="{% static '/assets/images/users/user-5.jpg' %}" alt="profile-user" class="rounded-circle thumb-xs" />                                 
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#"><i data-feather="user" class="align-self-center icon-xs icon-dual mr-1"></i> Profile</a>
+                                <a class="dropdown-item" href="#"><i data-feather="settings" class="align-self-center icon-xs icon-dual mr-1"></i> Settings</a>
+                                <div class="dropdown-divider mb-0"></div>
+                                <a class="dropdown-item" href="#"><i data-feather="power" class="align-self-center icon-xs icon-dual mr-1"></i> Logout</a>
+                            </div>
+                        </li>
+
+                       
+                    </ul><!--end topbar-nav-->
+
+                    {% endif %}
+        
+                    <ul class="list-unstyled topbar-nav mb-0">                        
+                        <li>
+                            <button class="nav-link button-menu-mobile">
+                                <i data-feather="menu" class="align-self-center topbar-icon"></i>
+                            </button>
+                        </li> 
+                             
+                    </ul>
+                </nav>
+                <!-- end navbar-->
+            </div>
+            <!-- Top Bar End -->
+
+            <!-- Page Content-->
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    {% block body %}
+                    {% endblock %}
+                   
+                <footer class="footer text-center text-sm-left">
+                    &copy; 2020 SANDSHADE LTD <span class="d-none d-sm-inline-block float-right"></span>
+                </footer><!--end footer-->
+            </div>
+            <!-- end page content -->
+        </div>
+        <!-- end page-wrapper -->
+
+        
+
+
+        <!-- jQuery  -->
+        <script src="{% static '/assets/js/jquery.min.js' %}"></script>
+        <script src="{% static '/assets/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static '/assets/js/metismenu.min.js' %}"></script>
+        <script src="{% static '/assets/js/waves.js' %}"></script>
+        <script src="{% static '/assets/js/feather.min.js' %}"></script>
+        <script src="{% static '/assets/js/simplebar.min.js' %}"></script>
+        <script src="{% static '/assets/js/moment.js' %}"></script>
+        <script src="{% static '/plugins/daterangepicker/daterangepicker.js' %}"></script>
+
+        <script src="{% static '/plugins/apex-charts/apexcharts.min.js' %}"></script>
+        <script src="{% static '/assets/pages/jquery.analytics_dashboard.init.js' %}"></script>
+
+        <!-- App js -->
+        <script src="{% static '/assets/js/app.js' %}"></script>
+        
+    </body>
+
+</html>
